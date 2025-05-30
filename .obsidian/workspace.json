@@ -1,0 +1,223 @@
+{
+  "main": {
+    "id": "18541c9319c2684b",
+    "type": "split",
+    "children": [
+      {
+        "id": "c35eeac54a1982bf",
+        "type": "tabs",
+        "dimension": 79.98533724340176,
+        "children": [
+          {
+            "id": "3931594cefc0858a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "SegmentTree/SegmentTree.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "SegmentTree"
+            },
+            "group": "7d5a2375c51e3e0d"
+          }
+        ]
+      },
+      {
+        "id": "32a29dc62cf704f7",
+        "type": "tabs",
+        "dimension": 20.014662756598238,
+        "children": [
+          {
+            "id": "7e047a329636fe61",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "SegmentTree/SegmentTree.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "SegmentTree 的大纲"
+            },
+            "group": "7d5a2375c51e3e0d"
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "31ce3ae54ee90914",
+    "type": "split",
+    "children": [
+      {
+        "id": "c76b552fd4d05776",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "dda95d40b00100f9",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "feab06eebe35509d",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "5ed806a46438f73a",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "758601480e3d23cd",
+    "type": "split",
+    "children": [
+      {
+        "id": "5bea18c420e5300b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "638448c2ef7cab21",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "SegmentTree/SegmentTree.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "SegmentTree 的反向链接列表"
+            }
+          },
+          {
+            "id": "03c487b6ae9c81a6",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "SegmentTree/SegmentTree.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "SegmentTree 的出链列表"
+            }
+          },
+          {
+            "id": "4de544608c48d65b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "219557155966c7cb",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "SegmentTree/SegmentTree.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "SegmentTree 的大纲"
+            }
+          },
+          {
+            "id": "ed3f8286c8b1dfbd",
+            "type": "leaf",
+            "state": {
+              "type": "github-copilot-chat-view",
+              "state": {},
+              "icon": "bot-message-square",
+              "title": "Copilot Chat"
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "obsidian-excalidraw-plugin:新建绘图文件": false
+    }
+  },
+  "active": "3931594cefc0858a",
+  "lastOpenFiles": [
+    "SegmentTree/P_3374_模板_树状数组_1.bin",
+    "SegmentTree/P_3374_模板_树状数组_1.cpp",
+    "SegmentTree/P_3372_模板_线段树_1.cpp",
+    "SegmentTree/SegmentTree.code-workspace",
+    "bin/t1",
+    "bin/encode",
+    "test/correct.txt",
+    "test/out.txt",
+    "bin",
+    "test/in.txt",
+    "test",
+    "SegmentTree/SegmentTree.md"
+  ]
+}

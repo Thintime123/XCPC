@@ -1,0 +1,315 @@
+{
+  "version": "2.0.0",
+  "configurations": [
+    {
+      "type": "auto-debug",
+      "name": "自动",
+      "request": "launch",
+      "map": {
+        "*.cpp": "C++(g++)",
+        "*.c": "C(gcc)",
+        "*.py": "Python",
+        "*.java": "Java(compile)",
+        "*.js": "Nodejs",
+        "*.ts": "Nodejs",
+        "*.cs": "C#(dotnet)",
+        "*.rb": "Ruby",
+        "*.go": "Go",
+        "*.rs": "Rust",
+        "*.kt": "Kotlin",
+        "*.swift": "Swift",
+        "*.php": "PHP",
+        "*.pl": "Perl",
+        "*.sh": "Shell",
+        "*.lua": "Lua",
+        "*.sql": "SQL",
+        "*.scala": "Scala",
+        "*.pas": "Pascal",
+        "*.r": "R",
+        "*.m": "Matlab",
+        "*.vb": "VisualBasic",
+        "*.vbs": "VisualBasic",
+        "*.ahk": "AutoHotkey",
+        "*.bat": "Batch",
+        "*.cmd": "Batch",
+        "*.ps1": "PowerShell"
+      }
+    },
+
+    // MSVC配置在Linux上不需要，保留为注释
+    /*
+    {
+      "name": "C/C++(msvc)",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}\\bin\\${fileBasenameNoExtension}.exe",
+      "args": [
+        "<",
+        "${workspaceFolder}\\test\\in.txt",
+        ">",
+        "${workspaceFolder}\\test\\out.txt"
+      ],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "console": "integratedTerminal",
+      "preLaunchTask": "C/C++编译(msvc)",
+      "postDebugTask": "git提交"
+    },
+    */
+
+    {
+      "name": "C++(g++)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/${fileBasenameNoExtension}",
+      "args": [
+        "<",
+        "${workspaceFolder}/test/in.txt",
+        ">",
+        "${workspaceFolder}/test/out.txt"
+      ],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        },
+        {
+          "description": "Set Disassembly Flavor to Intel",
+          "text": "-gdb-set disassembly-flavor intel",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "C++编译(g++)",
+      //"postDebugTask": "git提交"
+    },
+    {
+      "name": "C(gcc)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/${fileBasenameNoExtension}",
+      "args": [
+        "<",
+        "${workspaceFolder}/test/in.txt",
+        ">",
+        "${workspaceFolder}/test/out.txt"
+      ],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        },
+        {
+          "description": "Set Disassembly Flavor to Intel",
+          "text": "-gdb-set disassembly-flavor intel",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "C编译(gcc)",
+      //"postDebugTask": "git提交"
+    },
+    {
+      "name": "C++(clang++)",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/${fileBasenameNoExtension}",
+      "args": [
+        "<",
+        "${workspaceFolder}/test/in.txt",
+        ">",
+        "${workspaceFolder}/test/out.txt"
+      ],
+      "cwd": "${workspaceFolder}",
+      "terminal": "integrated",
+      "preLaunchTask": "C++编译(clang++)",
+      //"postDebugTask": "git提交"
+    },
+    {
+      "name": "C(clang)",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/${fileBasenameNoExtension}",
+      "args": [
+        "<",
+        "${workspaceFolder}/test/in.txt",
+        ">",
+        "${workspaceFolder}/test/out.txt"
+      ],
+      "cwd": "${workspaceFolder}",
+      "terminal": "integrated",
+      "preLaunchTask": "C编译(clang)",
+      //"postDebugTask": "git提交"
+    },
+    {
+      "name": "Java",
+      "type": "java",
+      "request": "launch",
+      "args": [
+        "<",
+        "${workspaceFolder}/test/in.txt",
+        ">",
+        "${workspaceFolder}/test/out.txt"
+      ],
+      "mainClass": "${fileBasenameNoExtension}",
+      //"postDebugTask": "git提交"
+    },
+    {
+      "name": "Java(compile)",
+      "type": "java",
+      "request": "launch",
+      "args": [
+        "<",
+        "${workspaceFolder}/test/in.txt",
+        ">",
+        "${workspaceFolder}/test/out.txt"
+      ],
+      "mainClass": "${workspaceFolder}/bin/${fileBasenameNoExtension}",
+      "preLaunchTask": "java编译",
+      //"postDebugTask": "git提交"
+    },
+    {
+      "name": "Python",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "python": "python",
+      "args": [
+        "<",
+        "${workspaceFolder}/test/in.txt",
+        ">",
+        "${workspaceFolder}/test/out.txt"
+      ],
+      "console": "integratedTerminal",
+      //"postDebugTask": "git提交"
+    },
+    {
+      "name": "Python(pypy)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "python": "pypy",
+      "args": [
+        "<",
+        "${workspaceFolder}/test/in.txt",
+        ">",
+        "${workspaceFolder}/test/out.txt"
+      ],
+      "console": "integratedTerminal",
+      //"postDebugTask": "git提交"
+    },
+
+    // .NET相关配置在Linux下可以注释掉，如果安装了.NET或Mono可以取消注释
+    /*
+    {
+      "name": "C#(dotnet)",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/${fileBasenameNoExtension}.exe",
+      "justMyCode": true,
+      "args": [
+        "<",
+        "${workspaceFolder}/test/in.txt",
+        ">",
+        "${workspaceFolder}/test/out.txt"
+      ],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "integratedTerminal",
+      "launchBrowser": {
+        "enabled": false
+      },
+      "preLaunchTask": "C#编译(dotnet)",
+      "postDebugTask": "git提交"
+    },
+    */
+
+    {
+      "name": "Nodejs",
+      "type": "node",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "args": [
+        "<",
+        "${workspaceFolder}/test/in.txt",
+        ">",
+        "${workspaceFolder}/test/out.txt"
+      ],
+      //"postDebugTask": "git提交"
+    },
+    {
+      "name": "PHP",
+      "type": "php",
+      "request": "launch",
+      "program": "${file}",
+      "args": [
+        "<",
+        "${workspaceFolder}/test/in.txt",
+        ">",
+        "${workspaceFolder}/test/out.txt"
+      ],
+      "cwd": "${workspaceFolder}",
+      "port": 9003,
+      //"postDebugTask": "git提交"
+    },
+    {
+      "name": "Go",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${file}",
+      "env": {},
+      "args": [
+        "<",
+        "${workspaceFolder}/test/in.txt",
+        ">",
+        "${workspaceFolder}/test/out.txt"
+      ],
+      "showLog": true,
+      //"postDebugTask": "git提交"
+    },
+    {
+      "name": "Rust",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/${fileBasenameNoExtension}",
+      "args": [
+        "<",
+        "${workspaceFolder}/test/in.txt",
+        ">",
+        "${workspaceFolder}/test/out.txt"
+      ],
+      "preLaunchTask": "Rust编译",
+      //"postDebugTask": "git提交"
+    },
+    {
+      "name": "Ruby",
+      "type": "rdbg",
+      "request": "launch",
+      "script": "${file}",
+      "useTerminal": true,
+      "args": [
+        "<",
+        "${workspaceFolder}/test/in.txt",
+        ">",
+        "${workspaceFolder}/test/out.txt"
+      ],
+      "cwd": "${workspaceFolder}",
+      //"postDebugTask": "git提交"
+    }
+  ]
+}

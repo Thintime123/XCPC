@@ -1,0 +1,231 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "type": "shell",
+      "command": "g++",  // 使用Linux系统的g++
+      "args": [
+          "-g",              // 生成调试信息
+          "t2.cpp",        // 源代码文件
+          "-o", "t2",  // 输出文件 (Linux不需要.exe扩展名)
+          "-std=c++17"       // C++ 标准版本
+      ],
+      "group": {
+          "kind": "build",
+          "isDefault": true
+      },
+      "problemMatcher": ["$gcc"],
+      "detail": "Generated task for GCC build"
+  },
+
+
+    // MSVC相关配置在Linux下不需要，保留为注释
+    /*
+    {
+      "type": "shell",
+      "label": "C/C++编译(msvc)",
+      "command": "cl",
+      "args": [
+        "/Zi",
+        "/EHsc",
+        "/Fo:",
+        "${workspaceFolder}\\temp\\${fileBasenameNoExtension}",
+        "/Fd:",
+        "${workspaceFolder}\\temp\\${fileBasenameNoExtension}",
+        "/Fe:",
+        "${workspaceFolder}\\bin\\${fileBasenameNoExtension}.exe",
+        "${file}"
+      ],
+      "options": {
+        "shell": {
+          "executable": "cmd.exe",
+          "args": ["/C", "\"D:/Program Files/Microsoft Visual Studio/2022/Community/Common7/Tools/VsDevCmd.bat\"", "&&"]
+        }
+      },
+      "problemMatcher": ["$msCompile"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    */
+
+    {
+      "type": "cppbuild",
+      "label": "C++编译(g++)",
+      "command": "g++",
+      "args": [
+        "-fdiagnostics-color=always",
+        "-g",
+        "${file}",
+        "-o",
+        "${workspaceFolder}/bin/${fileBasenameNoExtension}"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$gcc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "type": "cppbuild",
+      "label": "C编译(gcc)",
+      "command": "gcc",
+      "args": [
+        "-g",
+        "${file}",
+        "-o",
+        "${workspaceFolder}/bin/${fileBasenameNoExtension}"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "type": "cppbuild",
+      "label": "C++编译(clang++)",
+      "command": "clang++",
+      "args": [
+        "-fcolor-diagnostics",
+        "-g",
+        "${file}",
+        "-o",
+        "${workspaceFolder}/bin/${fileBasenameNoExtension}"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$gcc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "type": "cppbuild",
+      "label": "C编译(clang)",
+      "command": "clang",
+      "args": [
+        "-fcolor-diagnostics",
+        "-g",
+        "${file}",
+        "-o",
+        "${workspaceFolder}/bin/${fileBasenameNoExtension}"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$gcc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    
+    // 以下是.NET相关配置，在Linux下保留为注释，如果安装了Mono或.NET可以取消注释
+    /*
+    {
+      "type": "shell",
+      "label": "C#编译(dotnet)",
+      "command": "csc",
+      "args": [
+        "${file}",
+        "/target:exe",
+        "/out:${workspaceFolder}\\bin\\${fileBasenameNoExtension}.exe",
+        "/debug:full"
+      ],
+      "problemMatcher": ["$msCompile"],
+      "options": {
+        "shell": {
+          "executable": "cmd.exe",
+          "args": ["/C", "\"D:/Program Files/Microsoft Visual Studio/2022/Community/Common7/Tools/VsDevCmd.bat\"", "&&"]
+        }
+      }
+    },
+    {
+      "type": "shell",
+      "label": "C#编译(mono)",
+      "command": "mcs",
+      "args": [
+        "${file}",
+        "/target:winexe",
+        "/out:${workspaceFolder}\\bin\\${fileBasenameNoExtension}.exe",
+        "/debug"
+      ],
+      "problemMatcher": ["$msCompile"]
+    },
+    */
+    {
+      "type": "shell",
+      "label": "java编译",
+      "command": "javac",
+      "args": ["${file}", "-d", "${workspaceFolder}/bin"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "type": "shell",
+      "label": "Go编译",
+      "command": "go",
+      "args": [
+        "build",
+        "-o",
+        "${workspaceFolder}/bin/${fileBasenameNoExtension}",
+        "${file}"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "type": "shell",
+      "label": "Rust编译",
+      "command": "rustc",
+      "args": [
+        "${file}",
+        "-o",
+        "${workspaceFolder}/bin/${fileBasenameNoExtension}"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "type": "shell",
+      "label": "git提交",
+      "command": "${workspaceFolder}/.vscode/gitcommit",
+      "args": [
+        "${workspaceFolder}/test/out.txt",
+        "${workspaceFolder}/test/correct.txt",
+        "${file}",
+        "${fileBasename}"
+      ],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
+    }
+  ]
+}

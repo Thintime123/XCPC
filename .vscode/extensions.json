@@ -1,0 +1,50 @@
+{
+  "recommendations": [
+    // required
+    "DarrenLevine.auto-debug",
+    "VisualStudioExptTeam.vscodeintellicode",
+
+    // recommended
+    "vscode-icons-team.vscode-icons",
+
+    // C/C++
+    "ms-vscode.cpptools",
+    "vadimcn.vscode-lldb",
+
+    // Java
+    "redhat.java",
+    "vscjava.vscode-java-debug",
+    "vscjava.vscode-java-dependency",
+
+    // Python
+    "ms-python.python",
+    "ms-python.debugpy",
+    "ms-python.vscode-pylance",
+
+    // Node.js
+    "ms-vscode.vscode-typescript-next",
+    "xabikos.JavaScriptSnippets",
+
+    // C#
+    "ms-dotnettools.csharp",
+    "ms-dotnettools.csdevkit",
+    "ms-dotnettools.vscodeintellicode-csharp",
+    "ms-vscode.mono-debug",
+
+    // PHP
+    "xdebug.php-debug",
+    "xdebug.php-pack",
+    "zobo.php-intellisense",
+
+    // Go
+    "golang.go",
+
+    // Rust
+    "rust-lang.rust-analyzer",
+
+    // Ruby
+    "KoichiSasada.vscode-rdbg",
+    "Shopify.ruby-lsp",
+    "Shopify.ruby-extensions-pack"
+  ]
+}

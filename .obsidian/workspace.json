@@ -207,6 +207,7 @@
   },
   "active": "3931594cefc0858a",
   "lastOpenFiles": [
+    "SegmentTree/P_3372_模板_线段树_1.bin",
     "SegmentTree/P_3374_模板_树状数组_1.bin",
     "SegmentTree/P_3374_模板_树状数组_1.cpp",
     "SegmentTree/P_3372_模板_线段树_1.cpp",
@@ -217,7 +218,6 @@
     "test/out.txt",
     "bin",
     "test/in.txt",
-    "test",
     "SegmentTree/SegmentTree.md"
   ]
 }

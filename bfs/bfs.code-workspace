@@ -1,0 +1,64 @@
+{
+	"folders": [
+		{
+			"name": "bfs",
+			"path": "."
+		},
+		{
+			"name": "XCPC",
+			"path": ".."
+		}
+	],
+	"settings": {
+		"terminal.integrated.defaultProfile.linux": "bash",
+		"files.associations": {
+			"string": "cpp",
+			"iostream": "cpp",
+			"xstring": "cpp",
+			"vector": "cpp",
+			"ostream": "cpp",
+			"format": "cpp",
+			"numeric": "cpp",
+			"algorithm": "cpp",
+			"chrono": "cpp",
+			"memory": "cpp",
+			"limits": "cpp",
+			"random": "cpp",
+			"utility": "cpp",
+			"valarray": "cpp",
+			"xutility": "cpp",
+			"ios": "cpp",
+			"tuple": "cpp",
+			"array": "cpp",
+			"deque": "cpp",
+			"iterator": "cpp",
+			"list": "cpp",
+			"xhash": "cpp",
+			"xtree": "cpp",
+			"filesystem": "cpp",
+			"forward_list": "cpp",
+			"initializer_list": "cpp",
+			"regex": "cpp",
+			"iosfwd": "cpp",
+			"map": "cpp",
+			"bitset": "cpp",
+			"cctype": "cpp",
+			"cfenv": "cpp",
+			"cinttypes": "cpp",
+			"clocale": "cpp",
+			"cmath": "cpp",
+			"csetjmp": "cpp",
+			"csignal": "cpp",
+			"cstdarg": "cpp",
+			"cstddef": "cpp",
+			"cstdint": "cpp",
+			"cstdio": "cpp",
+			"cstdlib": "cpp",
+			"cstring": "cpp",
+			"ctime": "cpp",
+			"cuchar": "cpp",
+			"cwchar": "cpp",
+			"cwctype": "cpp"
+		}
+	}
+}

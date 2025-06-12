@@ -1,2 +1,7 @@
 .vscode/
+.cph/
 test_case/
+bin/
+test/
+.obsidan/
+*.code-workspace

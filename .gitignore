@@ -1,7 +1,10 @@
 .vscode/
-.cph/
-test_case/
 bin/
 test/
-.obsidan/
 *.code-workspace
+
+.obsidian/
+
+.cph/
+test_case/
+t1.cpp

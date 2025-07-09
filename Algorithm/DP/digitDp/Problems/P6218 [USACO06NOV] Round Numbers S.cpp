@@ -29,47 +29,45 @@ const int MOD = 1e9 + 7;
 const int N = 2e5 + 2;
 const int inf = 1e9;
 
+// dp[pos][cnt0][cnt1]
+int dp[40][40][40];
+vector<int> num(40);
+
+int dfs(int pos, int cnt0, int cnt1, bool limit, bool lead) {
+	if(pos == 0) return lead || cnt0 >= cnt1;
+
+	if(!limit && !lead && ~dp[pos][cnt0][cnt1]) return dp[pos][cnt0][cnt1];
+
+	int up = limit ? num[pos] : 1;
+	int ans = 0;
+
+	fer(i, 0, up + 1) {
+		int new_lead = lead && !i;
+		ans += dfs(pos - 1, cnt0 + (!new_lead && !i), cnt1 + i, limit && i == up, new_lead);
+	}
+
+	if(!limit && !lead) dp[pos][cnt0][cnt1] = ans;
+	return ans;
+}
+
 signed main() {
     IOS;
 
-    vector<int> w(N);
+    int l, r;
+    cin >> l >> r;
 
-    int cnt = 0;
-    int maxN = 0;
-    fer(i, 1, 7) {
-        int v;
-        if(i <= 3) v = i;
-        else if(i == 4) v = 5;
-        else if(i == 5) v = 10;
-        else if(i == 6) v = 20;
+    auto get = [&](int n) -> int {
+    	int len = 0;
+    	memset(dp, -1, sizeof dp);
+    	while(n) {
+    		num[++len] = n & 1;
+    		n >>= 1;
+    	}
+    	return dfs(len, 0, 0, true, true);
+    };
 
-        int c;
-        cin >> c;
+    cout << get(r) - get(l - 1) << '\n';
 
-        maxN += v * c;
-        int k = 1;
-        while(k <= c) {
-            w[++cnt] = k * v;
-            c -= k;
-            k <<= 1;
-        }
-        if(c) {
-            w[++cnt] = k * v;
-            c -= k;
-        }
-    }
 
-    // dp[j]: 重量j的可能性
-    vector<bool> dp(maxN + 1);
-    dp[0] = 1;
-
-    fer(i, 1, cnt + 1) {
-        ferd(j, maxN, w[i]) {
-            dp[j] = dp[j] | dp[j - w[i]];
-        }
-    }
-    int ans = 0;
-    fer(i, 1, maxN + 1)  ans += dp[i];
-    cout << "Total=" << ans << '\n';
     return 0;
 }

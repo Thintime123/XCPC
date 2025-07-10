@@ -29,28 +29,31 @@ const int MOD = 1e9 + 7;
 const int N = 2e5 + 2;
 const int inf = 1e9;
 
-// dp[pos][d]
-ll dp[15][10];
+// dp[pos][cnt]: 枚举到pos时出现了cnt次时总共出现的次数
+ll dp[15][15];
 vector<int> num(15);
 
 ll dfs(int pos, int d, int cnt, bool limit, bool lead) {
-	if(pos == 0) return 0;
+	if(pos == 0) return cnt;
 
-	if(!limit && !lead && ~dp[pos][d]) return dp[pos][d];
+	if(!limit && !lead && ~dp[pos][cnt]) return dp[pos][cnt];
 
 	int up = limit ? num[pos] : 9;
 	ll ans = 0;
 
 	fer(i, 0, up + 1) {
-		if(!lead) {
-			if(i == d) ans++;
-		} else {
-			if(pos == 1 && i == d) ans++;
-			else if(i && i == d) ans++;
-		}
-		ans += dfs(pos - 1, d, cnt, limit && i == up, lead && !i);
+		// if(!lead) {
+		// 	if(i == d) cnt++;
+		// } else {
+		// 	if(d && i == d) cnt++;
+		// 	else if(pos == 1 && i == d) cnt++;
+		// }
+		int cnt1 = cnt + (lead && !i ? 0 : i == d);
+		int cnt2 = cnt + (!lead && i == d || lead && d && i == d);
+		int cnt3 = cnt + (!lead && i == d || d && i == d || pos == 1 && i == d);
+		ans += dfs(pos - 1, d, cnt3, limit && i == up, lead && !i);
 	}
-	if(!limit && !lead) dp[pos][d] = ans;
+	if(!limit && !lead) dp[pos][cnt] = ans;
 	return ans;
 }
 
@@ -59,8 +62,6 @@ signed main() {
 
     ll l, r;
     cin >> l >> r;
-
-    vector<int> res(10);
 
     auto get = [&](ll n, int d) {
     	memset(dp, -1, sizeof dp);
@@ -75,5 +76,6 @@ signed main() {
     fer(i, 0, 10) {
     	cout << get(r, i) - get(l - 1, i) << ' ';
     }
+
     return 0;
 }

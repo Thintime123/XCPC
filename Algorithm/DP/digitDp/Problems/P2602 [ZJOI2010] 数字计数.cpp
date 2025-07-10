@@ -29,44 +29,51 @@ const int MOD = 1e9 + 7;
 const int N = 2e5 + 2;
 const int inf = 1e9;
 
-// dp[pos][cnt0][cnt1]
-int dp[40][40][40];
-vector<int> num(40);
+// dp[pos][d]
+ll dp[15][10];
+vector<int> num(15);
 
-int dfs(int pos, int cnt0, int cnt1, bool limit, bool lead) {
-	if(pos == 0) return lead || cnt0 >= cnt1;
+ll dfs(int pos, int d, int cnt, bool limit, bool lead) {
+	if(pos == 0) return 0;
 
-	if(!limit && !lead && ~dp[pos][cnt0][cnt1]) return dp[pos][cnt0][cnt1];
+	if(!limit && !lead && ~dp[pos][d]) return dp[pos][d];
 
-	int up = limit ? num[pos] : 1;
-	int ans = 0;
+	int up = limit ? num[pos] : 9;
+	ll ans = 0;
 
 	fer(i, 0, up + 1) {
-		int new_lead = lead && !i;
-		ans += dfs(pos - 1, cnt0 + (!new_lead && !i), cnt1 + i, limit && i == up, new_lead);
+		if(!lead) {
+			if(i == d) ans++;
+		} else {
+			if(pos == 1 && i == d) ans++;
+			else if(i && i == d) ans++;
+		}
+		ans += dfs(pos - 1, d, cnt, limit && i == up, lead && !i);
 	}
-
-	if(!limit && !lead) dp[pos][cnt0][cnt1] = ans;
+	if(!limit && !lead) dp[pos][d] = ans;
 	return ans;
 }
 
 signed main() {
     IOS;
 
-    int l, r;
+    ll l, r;
     cin >> l >> r;
 
-    auto get = [&](int n) -> int {
-    	int len = 0;
+    vector<int> res(10);
+
+    auto get = [&](ll n, int d) {
     	memset(dp, -1, sizeof dp);
+    	num[0] = 0;
     	while(n) {
-    		num[++len] = n & 1;
-    		n >>= 1;
+    		num[++num[0]] = n % 10;
+    		n /= 10;
     	}
-    	return dfs(len, 0, 0, true, true);
+    	return dfs(num[0], d, 0, true, true);
     };
 
-    cout << get(r) - get(l - 1) << '\n';
-
+    fer(i, 0, 10) {
+    	cout << get(r, i) - get(l - 1, i) << ' ';
+    }
     return 0;
 }

@@ -41,16 +41,18 @@ int dfs(int pos, int pre, bool limit, bool lead) {
 	int up = limit ? num[pos] : 9;
 	int ans = 0;
 	fer(i, 0, up + 1) {
-		if(pre == 0) {
-			if(!lead && i < 2) continue;
-			ans += dfs(pos - 1, i, limit && i == up, lead && !i);
-		} else {
-			if(abs(i - pre) < 2) continue;
-			ans += dfs(pos - 1, i, limit && i == up, lead && !i);
-		}
-		// if(lead || abs(i - pre) >= 2) {
+		// 角度一：pre是否为0
+		// if(pre == 0) {
+		// 	if(!lead && i < 2) continue;
+		// 	ans += dfs(pos - 1, i, limit && i == up, lead && !i);
+		// } else {
+		// 	if(abs(i - pre) < 2) continue;
 		// 	ans += dfs(pos - 1, i, limit && i == up, lead && !i);
 		// }
+		// 角度二：是否处于前导零阶段
+		if(lead || abs(i - pre) >= 2) {
+			ans += dfs(pos - 1, i, limit && i == up, lead && !i);
+		}
 	}
 
 	if(!limit && !lead) dp[pos][pre] = ans;

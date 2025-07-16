@@ -646,7 +646,7 @@ int main() {
 
 C++
 
-```
+```cpp
 #include <iostream>
 #include <vector>
 

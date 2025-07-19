@@ -29,32 +29,26 @@
 // const int N = 2e5 + 2;
 // const int inf = 1e9;
 
-// class DSU {
-// private:
+// struct DSU {
 // 	int n;
-// 	vector<int> parent, rank;
+// 	vector<int> fa, sz;
 
-// public:
-// 	vector<int> sz;
-// 	// 节点编号从 0 开始
+// 	// 节点编号从 1 开始
 // 	DSU(int n) : n(n) {
-// 		parent.resize(n);
-// 		iota(all(parent), 0);
-// 		rank.resize(n);
-// 		sz.resize(n, 1);
+// 		fa.resize(n + 1);
+// 		iota(all(fa), 0);
+// 		sz.resize(n + 1, 1);
 // 	}
 
 // 	int find(int x) {
-// 		if(x != parent[x]) {
-// 			parent[x] = find(parent[x]);
-// 		}
-// 		return parent[x];
+// 		return x == fa[x] ? x : fa[x] = find(fa[x]);
 // 	}
 
 // 	void merge(int x, int y) {
 // 		int rx = find(x), ry = find(y);
 // 		if(rx != ry) {
-// 			parent[ry] = rx;
+// 			if(sz[rx] < sz[ry]) swap(rx, ry);
+// 			fa[ry] = rx;
 // 			sz[rx] += sz[ry];
 // 		}
 // 	}
@@ -62,40 +56,50 @@
 // 	bool same(int x, int y) {
 // 		return find(x) == find(y);
 // 	}
+
+// 	int size(int x) {
+// 		return sz[find(x)];
+// 	}
 // };
 
 // signed main() {
 //     IOS;
 
-//     int n, m;
-//     cin >> n >> m;
-//     set<int> st[n];
-//     DSU uf(n);
+//     int n, k;
+//     cin >> n >> k;
+//     DSU uf(3 * n);
 
-//     while(m--) {
-//     	char op;
-//     	int a, b;
-//     	cin >> op >> a >> b;
-//     	a--, b--;
-//     	if(op == 'F') uf.merge(a, b);
-//     	else {
-//     		st[a].insert(b);
-//     		st[b].insert(a);
+//     int ans = 0;
+//     while(k--) {
+//     	int d, x, y;
+//     	cin >> d >> x >> y;
+
+//     	if(x > n || y > n || x == y && d == 2) {
+//     		ans++;
+//     		continue;
+//     	}
+//     	if(d == 1) {
+//     		if(uf.same(x + n, y) || uf.same(x + 2 * n, y)) {
+//     			ans++;
+//     			continue;
+//     		}
+//     		uf.merge(x, y);
+//     		uf.merge(x + n, y + n);
+//     		uf.merge(x + 2 * n, y + 2 * n);
+//     	} else if(d == 2) {
+//     		if(uf.same(x + 2 * n, y) || uf.same(x, y)) {
+//     			ans++;
+//     			continue;
+//     		}
+//     		uf.merge(x + n, y);
+//     		uf.merge(x + 2 * n, y + n);
+//     		uf.merge(x, y + 2 * n);
 //     	}
 //     }
-//     fer(i, 0, n) {
-//     	int x = *st[i].begin();
-//     	for(auto a : st[i]) uf.merge(x, a);
-//     }
-// 	set<int> res;
-// 	fer(i, 0, n) {
-// 		res.insert(uf.find(i));
-// 	}
-// 	cout << res.size() << '\n';
+//     cout << ans << '\n';
 
 //     return 0;
 // }
-
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -130,24 +134,30 @@ const int inf = 1e9;
 struct DSU {
 	int n;
 	vector<int> fa, sz;
+	vector<int> d;
 
 	// 节点编号从 1 开始
 	DSU(int n) : n(n) {
 		fa.resize(n + 1);
 		iota(all(fa), 0);
 		sz.resize(n + 1, 1);
+		d.resize(n + 1);
 	}
 
 	int find(int x) {
-		return x == fa[x] ? x : fa[x] = find(fa[x]);
+		if(x == fa[x]) return x;
+		int t = fa[x];
+		fa[x] = find(fa[x]);
+		d[x] = (d[x] + d[t]) % 3;
+		return fa[x];
 	}
 
-	void merge(int x, int y) {
+	void merge(int x, int y, int w) {
 		int rx = find(x), ry = find(y);
 		if(rx != ry) {
-			//if(sz[rx] < sz[ry]) swap(rx, ry);
-			fa[ry] = rx;
-			sz[rx] += sz[ry];
+			fa[rx] = ry;
+			d[rx] = ((d[y] + w - d[x]) % 3 + 3) % 3;
+			sz[ry] += sz[rx];
 		}
 	}
 
@@ -163,28 +173,32 @@ struct DSU {
 signed main() {
     IOS;
 
-    int n;
-    cin >> n;
-    DSU uf(2 * n);
-
-    int m;
-    cin >> m;
-    while(m--) {
-    	char op;
-    	int a, b;
-    	cin >> op >> a >> b;
-    	if(op == 'F') {
-    		uf.merge(a, b);
-    		uf.merge(a + n, b + n);
-    	} else {
-    		uf.merge(b, a + n);
-    		uf.merge(a, b + n);
-    	}
-    }
+    int n, k;
+    cin >> n >> k;
+    DSU uf(n);
 
     int ans = 0;
-    fer(i, 1, n + 1) {
-    	if(uf.fa[i] == i) ans++;
+    while(k--) {
+    	int d, x, y;
+    	cin >> d >> x >> y;
+
+    	if(x > n || y > n || x == y && d == 2) {
+    		ans++;
+    		continue;
+    	}
+    	if(d == 1) {
+    		if(uf.same(x, y) && (uf.d[x] - uf.d[y] + 3) % 3 != 0) {
+    			ans++;
+    			continue;
+    		}
+    		uf.merge(x, y, 0);
+    	} else if(d == 2) {
+    		if(uf.same(x, y) && (uf.d[x] - uf.d[y] + 3) % 3 != 1) {
+    			ans++;
+    			continue;
+    		}
+    		uf.merge(x, y, 1);
+    	}
     }
     cout << ans << '\n';
 

@@ -31,14 +31,12 @@ const int inf = 1e9;
 
 struct DSU {
 	int n;
-	vector<int> fa, rank;
-	vector<int> sz;
+	vector<int> fa, sz;
 
 	// 节点编号从 1 开始
 	DSU(int n) : n(n) {
 		fa.resize(n + 1);
 		iota(all(fa), 0);
-		rank.resize(n + 1);
 		sz.resize(n + 1, 1);
 	}
 

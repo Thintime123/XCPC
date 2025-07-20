@@ -175,7 +175,7 @@ signed main() {
     	cin >> op >> a >> b;
     	if(op == 'F') {
     		uf.merge(a, b);
-    		uf.merge(a + n, b + n);
+    		//uf.merge(a + n, b + n);
     	} else {
     		uf.merge(b, a + n);
     		uf.merge(a, b + n);
@@ -184,7 +184,7 @@ signed main() {
 
     int ans = 0;
     fer(i, 1, n + 1) {
-    	if(uf.fa[i] == i) ans++;
+    	if(uf.find(i) == i) ans++;
     }
     cout << ans << '\n';
 

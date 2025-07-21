@@ -99,8 +99,6 @@ signed main() {
     	}
     }
 
-    
-
     vector<int> res;
     ferd(i, k - 1, 0) {
     	res.push_back(cnt);

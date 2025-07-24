@@ -2,6 +2,7 @@
 
 using namespace std;
 
+#define IOS ios::sync_with_stdio(false); cin.tie(nullptr)
 #define ll long long
 #define ull unsigned long long
 //#define int ll
@@ -9,88 +10,147 @@ using namespace std;
 #define all(x) x.begin(),x.end()
 #define fer(i, m, n) for(int i = m; i < n; ++i)
 #define ferd(i, m, n) for(int i = m; i >= n; --i)
-#define dbg(x) cout << #x << ' ' << '=' << ' ' << x << '\n'
+#define dbg(x) cerr << #x << char(61) << x << " ###\n"
+#define dbg_arr(a, i) cerr << #a << '[' << i << "]=" << a[i] << " ###\n"
+#define lowbit(x)  ((x) & -(x))
+
+using u32 = unsigned;
+using i64 = ll;
+using u64 = ull;
+using i128 = __int128;
+using u128 = unsigned __int128;
 
 const int MOD = 1e9 + 7;
 const int N = 2e5 + 2;
 const int inf = 1e9;
 
-ll arr[N];
-ll tree[N << 2];
-ll lazy[N << 2];
+template<class T>
+struct segmentTree {
+    struct Node {
+        int l, r;
+        T sum;
+        T lazy;
+    };
 
-void build(int node_ind, int l, int r) {
-    lazy[node_ind] = 0;
+    int n;
+    vector<Node> tr;
 
-    if(l == r) {
-        tree[node_ind] = arr[l];
-    } else {
-        int mid = l + (r - l >> 1);
-        build(node_ind << 1, l, mid);
-        build(node_ind << 1 | 1, mid + 1, r);
-        tree[node_ind] = tree[node_ind << 1] + tree[node_ind << 1 | 1];
+    segmentTree(int _n) {
+        init(vector<T> (_n));
     }
-}
-
-void push_down(int node_ind, int l, int r) {
-    if(lazy[node_ind] && l != r) {
-        int mid = l + (r - l >> 1);
-        tree[node_ind << 1] += lazy[node_ind] * (mid - l + 1);
-        lazy[node_ind << 1] += lazy[node_ind];
-        tree[node_ind << 1 | 1] += lazy[node_ind] * (r - mid);
-        lazy[node_ind << 1 | 1] += lazy[node_ind];
-
-        lazy[node_ind] = 0;
+    segmentTree(vector<T> a) {
+        init(a);
     }
-}
 
-void update_range(int node_ind, int l, int r, int upl, int upr, int val) {
-    push_down(node_ind, l ,r);
+    void init(vector<T> a) {
+        n = a.size();
+        tr.resize(n << 2, {});
 
-    if(upr < l || upl > r) return;
-    if(upl <= l && r <= upr) {
-        tree[node_ind] += val * (r - l + 1);
-        lazy[node_ind] += val;
-    } else {
-        int mid = l + (r - l >> 1);
-        update_range(node_ind << 1, l, mid, upl, upr, val);
-        update_range(node_ind << 1 | 1, mid + 1, r, upl, upr, val);
-        tree[node_ind] = tree[node_ind << 1] + tree[node_ind << 1 | 1];
+        function<void(int, int, int)> build = [&](int i, int l, int r) -> void {
+            tr[i].l = l, tr[i].r = r;
+            if(l == r) {
+                tr[i].sum = a[l];
+                return;
+            }
+            int mid = l + (r - l >> 1);
+            build(i << 1, l, mid);
+            build(i << 1 | 1, mid + 1, r);
+            push_up(i);
+        };
+        build(1, 0, n);
     }
-}
 
-ll query(int node_ind, int l, int r, int ql, int qr) {
-    push_down(node_ind, l, r);
+    void push_up(int i) {
+        tr[i].sum = tr[i << 1].sum + tr[i << 1 | 1].sum;
+    }
+    void push_down(int i) {
+        if(tr[i].lazy != 0) {
+            int l = tr[i].l, r = tr[i].r;
+            int mid = l + (r - l >> 1);
 
-    if(qr < l || r < ql) return 0;
-    if(ql <= l && r <= qr) return tree[node_ind];
+            tr[i << 1].sum += tr[i].lazy * (mid - tr[i << 1].l + 1);
+            tr[i << 1].lazy += tr[i].lazy;
 
-    int mid = l + (r - l >> 1);
-    ll p1 = query(node_ind << 1, l, mid, ql, qr);
-    ll p2 = query(node_ind << 1 | 1, mid + 1, r, ql, qr);
-    return p1 + p2;
-}
+            tr[i << 1 | 1].sum += tr[i].lazy * (tr[i << 1 | 1].r - mid);
+            tr[i << 1 | 1].lazy += tr[i].lazy;
+
+            tr[i].lazy = 0;
+        }
+    }
+
+    void update1(int i, int ind, T val) {
+        int l = tr[i].l, r = tr[i].r;
+        if(l == r) {
+            tr[i].sum += val;
+            return;
+        }
+        int mid = l + (r - l >> 1);
+        if(ind <= mid) update1(i << 1, ind, val);
+        else update1(i << 1 | 1, ind, val);
+        push_up(i);
+    }
+    void update2(int i, int ul, int ur, T val) {
+        int l = tr[i].l, r = tr[i].r;
+
+        if(r < ul || l > ur) return;
+        if(ul <= l && r <= ur) {
+            // 打懒标记，无需再往后更新
+            tr[i].sum += val * (r - l + 1);
+            tr[i].lazy += val;
+            return;
+        }
+
+        push_down(i);
+        int mid = l + (r - l >> 1);
+        update2(i << 1, ul, ur, val);
+        update2(i << 1 | 1, ul, ur, val);
+        push_up(i);
+    }
+
+    T query(int i, int ql, int qr) {
+        int l = tr[i].l, r = tr[i].r;
+
+        if(r < ql || l > qr) return 0;
+        if(ql <= l && r <= qr) return tr[i].sum;
+
+        push_down(i);
+        return query(i << 1, ql, qr) + query(i << 1 | 1, ql, qr);
+    }
+
+    void update1(int ind, T val) {
+        update1(1, ind, val);
+    }
+    void update2(int ul, int ur, T val) {
+        update2(1, ul, ur, val);
+    }
+    T query(int ql, int qr) {
+        return query(1, ql, qr);
+    }
+};
 
 signed main() {
-    ios::sync_with_stdio(false); cin.tie(nullptr);
+    IOS;
 
-    int n, q;
-    cin >> n >> q;
+    int n, m;
+    cin >> n >> m;
+    vector<ll> arr(n);
     fer(i, 0, n) cin >> arr[i];
 
-    build(1, 0, n - 1);
-    while(q--) {
+    segmentTree seg(arr);
+    while(m--) {
         int op;
         cin >> op;
         if(op == 1) {
-            ll x, y, k;
+            int x, y;
+            ll k;
             cin >> x >> y >> k;
-            update_range(1, 0, n - 1, x - 1, y - 1, k);
+            seg.update2(x - 1, y - 1, k);
         } else if(op == 2) {
             int x, y;
             cin >> x >> y;
-            cout << query(1, 0, n - 1, x - 1, y - 1) << '\n';
+            cout << seg.query(x - 1, y - 1) << '\n';
         }
     }
+
     return 0;
 }

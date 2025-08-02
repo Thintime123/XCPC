@@ -52,7 +52,7 @@ struct segmentTree {
                 tr[i].sum = a[l];
                 return;
             }
-            int mid = l + (r - l >> 1);
+            int mid = l + ((r - l) >> 1);
             build(i << 1, l, mid);
             build(i << 1 | 1, mid + 1, r);
             push_up(i);
@@ -66,7 +66,7 @@ struct segmentTree {
     void push_down(int i) {
         if(tr[i].lazy != 0) {
             int l = tr[i].l, r = tr[i].r;
-            int mid = l + (r - l >> 1);
+            int mid = l + ((r - l) >> 1);
 
             tr[i << 1].sum += tr[i].lazy * (mid - tr[i << 1].l + 1);
             tr[i << 1].lazy += tr[i].lazy;
@@ -84,7 +84,7 @@ struct segmentTree {
             tr[i].sum += val;
             return;
         }
-        int mid = l + (r - l >> 1);
+        int mid = l + ((r - l) >> 1);
         if(ind <= mid) update1(i << 1, ind, val);
         else update1(i << 1 | 1, ind, val);
         push_up(i);
@@ -95,13 +95,12 @@ struct segmentTree {
         if(r < ul || l > ur) return;
         if(ul <= l && r <= ur) {
             // 打懒标记，无需再往后更新
-            tr[i].sum += val * (r - l + 1);
+            tr[i].sum += val * ((r - l) + 1);
             tr[i].lazy += val;
             return;
         }
 
         push_down(i);
-        int mid = l + (r - l >> 1);
         update2(i << 1, ul, ur, val);
         update2(i << 1 | 1, ul, ur, val);
         push_up(i);
@@ -117,10 +116,10 @@ struct segmentTree {
         return query(i << 1, ql, qr) + query(i << 1 | 1, ql, qr);
     }
 
-    void update1(int ind, T val) {
+    void update(int ind, T val) {
         update1(1, ind, val);
     }
-    void update2(int ul, int ur, T val) {
+    void update(int ul, int ur, T val) {
         update2(1, ul, ur, val);
     }
     T query(int ql, int qr) {
@@ -144,7 +143,7 @@ signed main() {
             int x, y;
             ll k;
             cin >> x >> y >> k;
-            seg.update2(x - 1, y - 1, k);
+            seg.update(x - 1, y - 1, k);
         } else if(op == 2) {
             int x, y;
             cin >> x >> y;
